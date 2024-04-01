@@ -2,7 +2,6 @@ use bevy::{prelude::*, render::view::NoFrustumCulling};
 use rand::Fill;
 
 mod custom_material_plugin;
-
 use custom_material_plugin::{CustomMaterialPlugin, InstanceData, InstanceMaterialData};
 
 const GAME_SIZE: usize = 128;
@@ -81,13 +80,9 @@ fn step(
     mut instance_query: Query<&mut InstanceMaterialData>,
 ) {
     game_step.0 += 1;
-
     let mut instance = instance_query.single_mut();
-
     let mut next_tile_state = game_state.0.clone();
     let offset = (GAME_SIZE / 2) as f32 * CELL_SIZE * -1.;
-    // z is i
-    // x is ii
     for i in 0..GAME_SIZE {
         for ii in 0..GAME_SIZE {
             let check_row = |row: usize, check_center: bool| {
@@ -133,47 +128,14 @@ fn step(
                         offset + (i as f32 * CELL_SIZE),
                     ),
                     scale: 1.0,
-                    // color: Color::hsla((ii as f32 / GAME_SIZE as f32) * 360., 1., 0.5, 0.85)
-                    // color: Color::hsla(
-                    //     (ii as f32 / GAME_SIZE as f32) * 360.,
-                    //     (i as f32 / GAME_SIZE as f32) * 0.3 + 0.7,
-                    //     0.5,
-                    //     0.85,
-                    // )
-                    // .as_rgba_f32(),
-                    // color: Color::hsla(
-                    //     // (ii as f32 / GAME_SIZE as f32) * 180. + (game_step.0 % 180) as f32,
-                    //     (ii as f32 / GAME_SIZE as f32) * 360.,
-                    //     (i as f32 / GAME_SIZE as f32) * 0.5 + 0.5,
-                    //     0.5,
-                    //     0.5,
-                    // )
-                    // .as_rgba_f32(),
                     color: Color::hsla(
-                        // (ii as f32 / GAME_SIZE as f32) * 180. + (game_step.0 % 180) as f32,
-                        // ((ii + i) % (GAME_SIZE / 2)) as f32 / (GAME_SIZE / 2) as f32 * 360.,
                         ((ii * i) % (GAME_SIZE.pow(2) / 4)) as f32 / (GAME_SIZE.pow(2) / 4) as f32
                             * 360.,
-                        // ((ii * i) as f32 / (GAME_SIZE * GAME_SIZE) as f32) * 360.,
-                        // (i as f32 / GAME_SIZE as f32) * 0.5 + 0.5,
                         1.0,
                         0.5,
                         1.,
                     )
                     .as_rgba_f32(),
-                    // color: Color::hsla(
-                    //     // (ii as f32 / GAME_SIZE as f32) * 180. + (game_step.0 % 180) as f32,
-                    //     // ((ii + i) % (GAME_SIZE / 2)) as f32 / (GAME_SIZE / 2) as f32 * 360.,
-                    //     // ((ii * i) % (GAME_SIZE.pow(2) / 4)) as f32 / (GAME_SIZE.pow(2) / 4) as f32
-                    //     //     * 360.,
-                    //     ((ii * GAME_SIZE) + i) as f32 / GAME_SIZE.pow(2) as f32 * 360.,
-                    //     // ((ii * i) as f32 / (GAME_SIZE * GAME_SIZE) as f32) * 360.,
-                    //     // (i as f32 / GAME_SIZE as f32) * 0.5 + 0.5,
-                    //     1.0,
-                    //     0.5,
-                    //     1.,
-                    // )
-                    // .as_rgba_f32(),
                 });
             }
         }
