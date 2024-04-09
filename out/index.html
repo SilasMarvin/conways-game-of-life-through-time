@@ -3,21 +3,40 @@
 
 <head>
   <style>
+    body {
+      min-height: 100vh;
+    }
     canvas {
-      width: 100% !important;
-      height: 100% !important;
+      width: 100vw !important;
+      height: 100vh !important;
+    }
+    #play-game-click {
+      position: absolute;
+      margin-left: auto;
+      margin-right: auto;
+      left: 0;
+      right: 0;
+      top: 10%;
+      text-align: center;
     }
   </style>
 </head>
 
 <body style="margin: 0px;">
-  <canvas id="mygame-canvas"></canvas>
+  <div id="play-game-click">Start Conway's Game of Life Through Time</div>
+  <canvas id="conways-game-of-life-through-time-canvas"></canvas>
   <script defer type="module">
     import init from './mygame.js'
-    init().catch((error) => {
-      if (!error.message.startsWith("Using exceptions for control flow, don't mind me. This isn't actually an error!")) {
-        throw error;
-      }
+    let canvas = document.getElementById("conways-game-of-life-through-time-canvas");
+    let button = document.getElementById("play-game-click");
+    button.addEventListener("click", async () => {
+      button.remove();
+      await canvas.requestPointerLock();
+      init().catch((error) => {
+        if (!error.message.startsWith("Using exceptions for control flow, don't mind me. This isn't actually an error!")) {
+          throw error;
+        }
+      });
     });
   </script>
 </body>
