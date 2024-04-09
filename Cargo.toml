@@ -5,6 +5,9 @@ edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
+[lib]
+crate-type = ["cdylib", "rlib"]
+
 # Enable a small amount of optimization in debug mode
 [profile.dev]
 opt-level = 1
@@ -18,6 +21,10 @@ linker = "clang"
 rustflags = ["-C", "link-arg=-fuse-ld=/usr/bin/mold"]
 
 [dependencies]
-bevy = { version = "0.13.0", features = ["dynamic_linking"] }
+bevy = { version = "0.13.0" }
+bevy_egui = { version = "0.26.0", default-features = false, features = ["open_url", "default_fonts", "render"] }
+bevy_flycam = "0.13.0"
+bevy_web_asset = "0.8.0"
 bytemuck = "1.15.0"
 rand = { version = "0.8.5", features = ["min_const_gen"] }
+wasm-bindgen = "0.2.92"

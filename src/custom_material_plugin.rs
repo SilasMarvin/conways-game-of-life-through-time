@@ -148,7 +148,7 @@ impl FromWorld for CustomPipeline {
         CustomPipeline {
             shader: world
                 .resource::<AssetServer>()
-                .load("shaders/instancing.wgsl"),
+                .load("play-conways-game-of-life-through-time/shaders/instancing.wgsl"),
             mesh_pipeline: mesh_pipeline.clone(),
         }
     }
